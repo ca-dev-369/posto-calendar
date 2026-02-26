@@ -444,7 +444,7 @@ function setSyncState(s, l) {
 // ── FIREBASE LISTENERS ───────────────────────────────────
 function startListeners() {
   // Posts
-  db.collection('posts').orderBy('date', 'asc').onSnapshot(snap => {
+  db.collection('posts').onSnapshot(snap => {
     posts = snap.docs.map(d => ({ ...d.data(), _id: d.id }));
     renderCalendar();
     if (currentPanelDay && document.getElementById('pov').classList.contains('open'))
@@ -457,7 +457,7 @@ function startListeners() {
   });
 
   // Activity
-  db.collection('activity').orderBy('ts', 'desc').limit(50).onSnapshot(snap => {
+  db.collection('activity').onSnapshot(snap => {
     activity = snap.docs.map(d => ({ ...d.data(), _id: d.id }));
     renderAct();
   });
